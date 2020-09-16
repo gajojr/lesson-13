@@ -3,40 +3,41 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-  apiKey: 'AIzaSyCdHT-AYHXjF7wOrfAchX4PIm3cSj5tn14',
-  authDomain: 'crwn-db.firebaseapp.com',
-  databaseURL: 'https://crwn-db.firebaseio.com',
-  projectId: 'crwn-db',
-  storageBucket: 'crwn-db.appspot.com',
-  messagingSenderId: '850995411664',
-  appId: '1:850995411664:web:7ddc01d597846f65'
+    apiKey: "AIzaSyBQho1vUlXTASVy3_yR45Kokh9JPH3w6Xs",
+    authDomain: "crwn-db-a26da.firebaseapp.com",
+    databaseURL: "https://crwn-db-a26da.firebaseio.com",
+    projectId: "crwn-db-a26da",
+    storageBucket: "crwn-db-a26da.appspot.com",
+    messagingSenderId: "608290572657",
+    appId: "1:608290572657:web:9fb0b8d7432c35ece18ed0",
+    measurementId: "G-SDFY3KGVCW"
 };
 
 firebase.initializeApp(config);
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
-  if (!userAuth) return;
+export const createUserProfileDocument = async(userAuth, additionalData) => {
+    if (!userAuth) return;
 
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
 
-  const snapShot = await userRef.get();
+    const snapShot = await userRef.get();
 
-  if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
-    const createdAt = new Date();
-    try {
-      await userRef.set({
-        displayName,
-        email,
-        createdAt,
-        ...additionalData
-      });
-    } catch (error) {
-      console.log('error creating user', error.message);
+    if (!snapShot.exists) {
+        const { displayName, email } = userAuth;
+        const createdAt = new Date();
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            });
+        } catch (error) {
+            console.log('error creating user', error.message);
+        }
     }
-  }
 
-  return userRef;
+    return userRef;
 };
 
 export const auth = firebase.auth();
